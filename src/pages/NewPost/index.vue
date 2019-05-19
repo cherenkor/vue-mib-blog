@@ -9,7 +9,7 @@
     <Tiny-Editor v-model="content"/>
 
     <v-layout justify-center class="mt-4">
-      <v-btn @click="savePost">Save</v-btn>
+      <v-btn @click="save">Save</v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -17,6 +17,7 @@
 <script>
 import Uploader from "@/components/common/Uploader";
 import TinyEditor from "@/components/common/TinyMCEditor";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -31,14 +32,17 @@ export default {
     };
   },
   methods: {
-    savePost() {
+    ...mapActions("posts", ["savePost"]),
+    save() {
       const { image, title, content } = this;
       const post = {
         image,
         title,
-        content
+        content,
+        createdAt: new Date()
       };
-      console.log(post);
+
+      this.savePost(post);
     },
     saveImage(imageData) {
       this.image = imageData;

@@ -1,22 +1,22 @@
 <template>
   <v-container>
     <Tags/>
-    <div
+    <!-- <div
       v-infinite-scroll="localLoadMore"
       infinite-scroll-disabled="isLoading"
       infinite-scroll-distance="10"
-    >
-      <Post-List :list="posts" class="mt-5"/>
-      <v-layout justify-center>
-        <v-progress-circular
-          v-if="isLoading"
-          :size="50"
-          :width="8"
-          :color="colors.primary"
-          indeterminate
-        ></v-progress-circular>
-      </v-layout>
-    </div>
+    >-->
+    <Post-List :list="posts" class="mt-5"/>
+    <v-layout justify-center>
+      <v-progress-circular
+        v-if="isLoading"
+        :size="50"
+        :width="8"
+        :color="colors.primary"
+        indeterminate
+      ></v-progress-circular>
+    </v-layout>
+    <!-- </div> -->
   </v-container>
 </template>
 
@@ -33,11 +33,22 @@ export default {
   },
   data() {
     return {
-      isLoading: false
+      isLoading: true
+      // posts: []
     };
   },
-  mounted() {
-    this.loadPosts();
+  // firestore() {
+  //   return {
+  //     posts: db
+  //       .collection("posts")
+  //       .orderBy("title")
+  //       .get()
+  //       .then(() => (this.isLoading = false))
+  //   };
+  // },
+  async mounted() {
+    await this.loadPosts();
+    this.isLoading = false;
   },
   computed: {
     ...mapState("posts", ["posts"])

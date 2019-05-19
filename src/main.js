@@ -8,6 +8,7 @@ import './plugins/vuetify';
 import './plugins/vue-scroll-indicator';
 import './plugins/vue-infinite-scroll';
 import './plugins/tinymce';
+import './plugins/firestore';
 
 import './mixins/global';
 
