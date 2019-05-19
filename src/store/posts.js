@@ -5,7 +5,10 @@ import {
     SAVE_POSTS
 } from './mutation-types';
 
-import { reduce } from 'ramda';
+import {
+    reduce,
+    reverse
+} from 'ramda';
 import { safeRequest } from '@/utils/requestHandler';
 import {
     addPost,
@@ -26,11 +29,12 @@ export default {
         posts: []
     },
     getters: {
-        getPostsMap: (state) => reduce(createPostsMap, {}, state.posts)
+        getPostsMap: state => reduce(createPostsMap, {}, state.posts),
+        getPostsReversed: state => reverse(state.posts)
     },
     actions: {
         async loadPosts ({ commit }) {
-                const posts = await safeRequest(getPosts);
+                const posts = await safeRequest(getPosts('createdAt'));
 
                 if (posts.error) return posts.error;
                     

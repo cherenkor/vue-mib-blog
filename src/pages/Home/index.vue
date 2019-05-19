@@ -6,7 +6,7 @@
       infinite-scroll-disabled="isLoading"
       infinite-scroll-distance="10"
     >-->
-    <Post-List :list="posts" class="mt-5"/>
+    <Post-List :list="getPostsReversed" class="mt-5"/>
     <v-layout justify-center>
       <v-progress-circular
         v-if="isLoading"
@@ -24,7 +24,7 @@
 import PostList from "@/components/posts/PostList";
 import Tags from "@/components/tags/TagList";
 
-import { mapState, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -51,7 +51,7 @@ export default {
     this.isLoading = false;
   },
   computed: {
-    ...mapState("posts", ["posts"])
+    ...mapGetters("posts", ["getPostsReversed"])
   },
   methods: {
     ...mapActions("posts", ["loadPosts", "loadMorePosts"]),

@@ -8,7 +8,7 @@ import {
     storageBucket
 } from '@/configs';
 
-const firebaseApp = firebase.initializeApp({
+export const firebaseApp = firebase.initializeApp({
     apiKey,
     authDomain,
     databaseURL,

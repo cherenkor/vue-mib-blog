@@ -1,11 +1,23 @@
 import { db } from "@/db/firebase";
+import { auth } from "firebase";
 import { isEmpty } from 'ramda';
 
+// Authentication
+export const signInWithEmail = ({ email, password}) => async () => {
+    if (!email || !password) new Error('Please, provide auth credentials');
+
+    await auth().signInWithEmailAndPassword(email, password);
+
+    if (!auth().currentUser) new Error ('Did not authenticate');
+
+    return auth();
+};
+
+// Posts
 export const addPost = post => async () => {
     if (isEmpty(post)) new Error('Please, provide post object');
 
     const doc = await db.collection("posts").add(post).get();
-    console.log(doc);
 
     return {
         id: doc.id,
@@ -13,9 +25,9 @@ export const addPost = post => async () => {
     };
 };
 
-export const getPosts = async () => {
+export const getPosts = (orderBy = '') => async () => {
     let posts = [];
-    const snapShot = await db.collection("posts").get();
+    const snapShot = await db.collection("posts").orderBy(orderBy).get();
 
     snapShot.forEach(doc => {
         if (!doc.exists) return;
