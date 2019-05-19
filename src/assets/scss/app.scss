@@ -1,0 +1,15 @@
+@import "./fonts";
+@import "./variables";
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointer-anim {
+  cursor: pointer;
+  transition: transform $transition-time;
+}
+
+.pointer-anim:hover {
+  transform: scale(1.1);
+}
