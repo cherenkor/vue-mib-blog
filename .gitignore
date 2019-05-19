@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-/src/configs
+
+/src/configs/private.js
 
 # local env files
 .env.local
